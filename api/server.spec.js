@@ -37,6 +37,11 @@ describe("server.js", () => {
       res = await request(server).get("/games");
       expect(res.body).toHaveLength(1);
     });
+
+    it("should return an empty array if no games", async () => {
+      let res = await request(server).get("/games");
+      expect(res.body).toHaveLength(0);
+    });
   });
 
   describe("POST /games", async () => {
