@@ -15,4 +15,11 @@ describe("games-model", () => {
 
     it("should insert the provided game -- check game returned", async () => {});
   });
+
+  describe("find", () => {
+    it("should return an empty array even if no games are stored", async () => {
+      const games = await db("games");
+      expect(games).toHaveLength(0);
+    });
+  });
 });

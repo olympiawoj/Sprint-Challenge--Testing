@@ -19,6 +19,13 @@ describe("server.js", () => {
     });
   });
 
+  describe("GET /games", async () => {
+    it("should return status 200", async () => {
+      const res = await request(server).get("/games");
+      expect(res.status).toBe(200);
+    });
+  });
+
   describe("POST /games", async () => {
     it("should return status 201", async () => {
       const newGame = { title: "test", genre: "test", releaseYear: 1999 };
