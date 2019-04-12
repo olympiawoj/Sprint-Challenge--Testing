@@ -35,5 +35,17 @@ describe("games-model", () => {
       const games = await db("games");
       expect(games).toHaveLength(0);
     });
+
+    it("should return an array if games are added", async () => {
+      //add games
+      let games = await Games.add({
+        title: "jenga",
+        genre: "jenga",
+        releaseYear: 1999
+      });
+      //check length
+      games = await db("games");
+      expect(games).toHaveLength(1);
+    });
   });
 });
