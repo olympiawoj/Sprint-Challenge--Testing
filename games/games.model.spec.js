@@ -13,7 +13,21 @@ describe("games-model", () => {
       expect(games).toHaveLength(1);
     });
 
-    it("should insert the provided game -- check game returned", async () => {});
+    it("should insert the provided game -- check game returned", async () => {
+      const jenga = await Games.add({
+        title: "jenga",
+        genre: "jenga",
+        releaseYear: 1999
+      });
+      const game = await db("games")
+        .where({ title: "jenga" })
+        .first();
+      expect(game).toEqual({
+        title: "jenga",
+        genre: "jenga",
+        releaseYear: 1999
+      });
+    });
   });
 
   describe("find", () => {
