@@ -9,7 +9,7 @@ server.use(express.json());
 
 //sanity check
 server.get("/", (req, res) => {
-  res.send("testing works");
+  res.json({ message: "Testing server for sprint" });
 });
 
 module.exports = server;
