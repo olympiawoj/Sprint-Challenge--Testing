@@ -8,6 +8,7 @@ module.exports = {
 function find() {
   return db("games");
 }
+
 async function add(game) {
   const [title] = await db("games").insert(game);
   return findByTitle(title);

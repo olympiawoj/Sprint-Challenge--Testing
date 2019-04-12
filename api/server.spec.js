@@ -19,10 +19,23 @@ describe("server.js", () => {
     });
   });
 
+  //3 tests per endpoint
   describe("GET /games", async () => {
     it("should return status 200", async () => {
       const res = await request(server).get("/games");
       expect(res.status).toBe(200);
+    });
+    it("should return an array of all games", async () => {
+      let res = await request(server).get("/games");
+      expect(res.body).toHaveLength(0);
+
+      await db("games").insert({
+        title: "test",
+        genre: "test",
+        releaseYear: 1999
+      });
+      res = await request(server).get("/games");
+      expect(res.body).toHaveLength(1);
     });
   });
 
@@ -42,6 +55,20 @@ describe("server.js", () => {
         .post("/games")
         .send(errGame);
       expect(res.status).toBe(422);
+    });
+
+    it("should successfully insert the new game in db", async () => {
+      const newGame = { title: "test", genre: "test", releaseYear: 1999 };
+      let res = await request(server)
+        .post("/games")
+        .send(newGame);
+      res = await request(server).get("/games");
+
+      expect(res.body[0]).toEqual({
+        title: "test",
+        genre: "test",
+        releaseYear: 1999
+      });
     });
   });
 });
